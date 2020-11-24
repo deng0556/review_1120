@@ -33,7 +33,7 @@
         "beta": 1e-3,
         "sigma": 1,
         "save_res_every_ep": 1,
-        "near_neighbor": 20,
+        "near_neighbor": 19,
         "veh_speed": 10
     }
 }
