@@ -65,8 +65,8 @@ class TaxiRebalance(gym.Env, ABC):
         self._dispatch_rate = self._config['dispatch_rate']
         self._action_levels = self._config['action_levels']
 
-        #self.action_space = MultiDiscrete([(self._num_neighbors+1)*self._action_levels] * self._num_nodes)
-        self.action_space = MultiDiscrete([(self._num_neighbors) * self._action_levels] * self._num_nodes)
+        self.action_space = MultiDiscrete([(self._num_neighbors+1)*self._action_levels] * self._num_nodes)
+        #self.action_space = MultiDiscrete([(self._num_neighbors) * self._action_levels] * self._num_nodes)
         # self.observation_space = Tuple((Box(0, self._max_passenger, shape=(self._num_nodes,), dtype=np.int64),
         #                                 Box(0, self._max_vehicle, shape=(self._num_nodes,), dtype=np.int64)))
         self.observation_space = Box(-self._max_vehicle, self._max_passenger, shape=(self._num_nodes,), dtype=np.int64)
@@ -105,11 +105,10 @@ class TaxiRebalance(gym.Env, ABC):
             print(self._step)
             action = self.action_space.sample()
         action_mat = np.zeros((self._num_nodes, self._num_nodes))
-        for _idx, _cnb in enumerate(action):
-            nd_idx = _idx // self._action_levels
-            cnb = _cnb // self._action_levels
-            ac_idx = _idx % self._action_levels
-            nb_idx = self._neighbor_map[self._nodes[nd_idx]][cnb]
+        for nd_idx, chosen_action in enumerate(action):
+            chosen_neighbor = chosen_action // self._action_levels
+            ac_idx = chosen_action % self._action_levels
+            nb_idx = self._neighbor_map[self._nodes[nd_idx]][chosen_neighbor]
             dispatch_rate = (ac_idx+1) / self._action_levels
             action_mat[nd_idx, nb_idx] = dispatch_rate
             if nb_idx != nd_idx:
