@@ -11,7 +11,8 @@ from ray.tune.logger import pretty_print
 from Experiments import TaxiRebLite, TaxiRebalance, get_CLI_options, \
     RESULTS, CONFIG, update_graph_file, update_vehicle_initial_distribution
 
-tf = try_import_tf()[1]
+#tf = try_import_tf()[1]
+tf = try_import_tf()
 my_devices = tf.config.experimental.list_physical_devices(device_type='CPU')
 tf.config.experimental.set_visible_devices(devices=my_devices, device_type='CPU')
 
