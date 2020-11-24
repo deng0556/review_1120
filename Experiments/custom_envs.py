@@ -105,8 +105,9 @@ class TaxiRebalance(gym.Env, ABC):
             print(self._step)
             action = self.action_space.sample()
         action_mat = np.zeros((self._num_nodes, self._num_nodes))
-        for _idx, cnb in enumerate(action):
+        for _idx, _cnb in enumerate(action):
             nd_idx = _idx // self._action_levels
+            cnb = _cnb // self._action_levels
             ac_idx = _idx % self._action_levels
             nb_idx = self._neighbor_map[self._nodes[nd_idx]][cnb]
             dispatch_rate = (ac_idx+1) / self._action_levels
