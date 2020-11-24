@@ -1,0 +1,11 @@
+.__pycache__
+*.pyc
+.DS_Store
+.vscode
+SimMultiTrans/results
+.png
+.jpeg
+.jpg
+.idea
+venv/
+SimMultiTrans.egg-info
