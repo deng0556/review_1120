@@ -65,7 +65,8 @@ class TaxiRebalance(gym.Env, ABC):
         self._dispatch_rate = self._config['dispatch_rate']
         self._action_levels = self._config['action_levels']
 
-        self.action_space = MultiDiscrete([(self._num_neighbors+1)*self._action_levels] * self._num_nodes)
+        #self.action_space = MultiDiscrete([(self._num_neighbors+1)*self._action_levels] * self._num_nodes)
+        self.action_space = MultiDiscrete([(self._num_neighbors) * self._action_levels] * self._num_nodes)
         # self.observation_space = Tuple((Box(0, self._max_passenger, shape=(self._num_nodes,), dtype=np.int64),
         #                                 Box(0, self._max_vehicle, shape=(self._num_nodes,), dtype=np.int64)))
         self.observation_space = Box(-self._max_vehicle, self._max_passenger, shape=(self._num_nodes,), dtype=np.int64)
